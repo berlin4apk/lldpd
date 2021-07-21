@@ -53,10 +53,12 @@ jobs:
           key: ${{ matrix.os }}-${{ matrix.type }}
           max-size: 100M
       - name: Install stuff
-        run: ./tests/ci/install.sh
+        run: |
+          export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+          ./tests/ci/install.sh
       - name: Build and run tests
         run: |
-          export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH
+          export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
           ./tests/ci/run.sh
         env:
           LLDPD_CONFIG_ARGS: ${{ matrix.config-args }}
