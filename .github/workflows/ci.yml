@@ -51,7 +51,7 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-${{ matrix.config-args }}
-          max-size: 100M
+          max-size: 101M
       - name: Install stuff
         run: |
           export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
