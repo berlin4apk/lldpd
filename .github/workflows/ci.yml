@@ -88,6 +88,13 @@ jobs:
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+          ${{ runner.os }}-buildx-
       - uses: docker/metadata-action@v3
         id: meta
         with:
@@ -119,3 +126,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
