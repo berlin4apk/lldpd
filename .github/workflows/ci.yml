@@ -32,7 +32,13 @@ jobs:
           - os: macos-latest
             compiler: clang
             config-args: "--with-snmp --with-xml"
-          - os: macos-latest
+          - os: macos-11
+            compiler: clang
+            config-args: "--with-snmp --with-xml"
+          - os: macOS-10.15
+            compiler: clang
+            config-args: "--with-snmp --with-xml"
+          - os: macOS-10.15
             compiler: clang
             config-args: >
               --prefix=/usr/local
