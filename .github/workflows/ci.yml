@@ -54,10 +54,21 @@ jobs:
         with:
           submodules: true
       - name: ccache
-        uses: hendrikmuhs/ccache-action@v1
+        uses: hendrikmuhs/ccache-action@v1.2.1
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-${{ matrix.config-args }}
-          max-size: 101M
+          max-size: 501M
+      - name: 'Add /usr/lib/ccache:/usr/local/opt/ccache/libexec to $PATH'
+        run: |
+          echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
+          echo "/usr/lib/ccache" >> $GITHUB_PATH
+      - name: 'show $PATH'
+        run: |
+          echo "PATH ,$PATH,"
+          echo "GITHUB_PATH ,$GITHUB_PATH,"
+          wc -l $GITHUB_PATH
+          cat $GITHUB_PATH
+
       - name: Install stuff
         run: |
           export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
